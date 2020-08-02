@@ -1,0 +1,11 @@
+# Node.js modules folder.
+node_modules/
+
+# NPM and Yarn lockfiles.
+# We're using PNPM, which provide its own lockfile.
+package-lock.json
+npm-shrinkwrap.json
+yarn.lock
+
+# Log files.
+*.log

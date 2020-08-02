@@ -1,0 +1,25 @@
+{
+  "name": "@dev-star-stats/root",
+  "private": true,
+  "version": "0.0.0",
+  "description": "The mono-repository of dev-star-stats application.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VitorLuizC/dev-star-stats.git"
+  },
+  "author": {
+    "name": "Vitor Luiz Cavalcanti",
+    "email": "vitorluizc@outlook.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VitorLuizC/dev-star-stats/issues"
+  },
+  "homepage": "https://github.com/VitorLuizC/dev-star-stats#readme",
+  "dependencies": {
+    "pnpm": "^5.4.9"
+  }
+}
