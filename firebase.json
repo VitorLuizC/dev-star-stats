@@ -1,0 +1,16 @@
+{
+  "functions": {
+    "predeploy": "pnpm run build --filter @dev-star-stats/functions",
+    "source": "./packages/functions"
+  },
+  "hosting": {
+    "predeploy": "pnpm run build --filter @dev-star-stats/web",
+    "public": "./packages/web/build",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
