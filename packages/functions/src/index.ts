@@ -1,9 +1,21 @@
-import * as functions from 'firebase-functions';
+import { ApolloServer } from "apollo-server-cloud-functions";
+import * as functions from "firebase-functions";
 
-// Start writing Firebase Functions
-// https://firebase.google.com/docs/functions/typescript
+import typeDefs from "./typeDefs";
+import resolvers from "./resolvers";
 
-export const helloWorld = functions.https.onRequest((_, response) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  playground: true,
+  introspection: true,
 });
+
+const handler = server.createHandler({
+  cors: {
+    origin: true,
+    credentials: true,
+  },
+});
+
+export const graphql = functions.https.onRequest(handler);
