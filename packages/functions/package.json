@@ -12,7 +12,7 @@
   "engines": {
     "node": "10"
   },
-  "main": "./dist/index.js",
+  "main": "./dist/bundle.js",
   "dependencies": {
     "apollo-server-cloud-functions": "^2.16.1",
     "firebase-admin": "^9.0.0",
