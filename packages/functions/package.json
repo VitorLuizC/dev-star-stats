@@ -1,8 +1,9 @@
 {
   "name": "@dev-star-stats/functions",
   "scripts": {
-    "build": "tsc",
-    "serve": "pnpm run build && firebase emulators:start --only functions",
+    "build": "webpack --mode=production --config ./webpack.config.js",
+    "serve:build": "webpack --mode development --config ./webpack.config.js",
+    "serve": "pnpm run serve:build && firebase emulators:start --only functions",
     "shell": "pnpm run build && firebase functions:shell",
     "start": "pnpm run shell",
     "deploy": "firebase deploy --only functions",
@@ -15,11 +16,16 @@
   "dependencies": {
     "apollo-server-cloud-functions": "^2.16.1",
     "firebase-admin": "^9.0.0",
-    "firebase-functions": "^3.9.0"
+    "firebase-functions": "^3.9.0",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
+    "dotenv-webpack": "^2.0.0",
     "firebase-functions-test": "^0.2.1",
-    "typescript": "^3.9.7"
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   },
   "private": true
 }

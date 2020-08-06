@@ -1,2 +1,5 @@
 # Transpiled sources and sourceMaps.
 dist/
+
+# A file with environment variables.
+.env
