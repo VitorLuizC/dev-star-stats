@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const DotEnvPlugin = require('webpack-dotenv');
+const DotEnvPlugin = require('dotenv-webpack');
 
 /**
  * @type {import('webpack').ConfigurationFactory}
