@@ -1,4 +1,4 @@
-import {stringify} from 'querystring';
+import { stringify } from "querystring";
 
 /**
  * Get the GitHub sign-in URL.
@@ -10,12 +10,12 @@ const getSignInURL = () => {
   };
 
   return `https://github.com/login/oauth/authorize?${stringify(params)}`;
-}
+};
 
 const resolvers = {
   Query: {
-    signInURL: () => getSignInURL()
-  }
-}
+    signInURL: () => getSignInURL(),
+  },
+};
 
 export default resolvers;
