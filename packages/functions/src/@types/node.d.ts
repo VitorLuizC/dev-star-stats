@@ -3,5 +3,6 @@ declare namespace NodeJS {
     NODE_ENV: 'production' | 'development';
     GITHUB_CLIENT_ID: string;
     GITHUB_SECRET: string;
+    WEB_APPLICATION_URL: string;
   }
 }

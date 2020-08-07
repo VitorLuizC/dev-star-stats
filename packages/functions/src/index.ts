@@ -7,13 +7,16 @@ import resolvers from "./resolvers";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  playground: true,
-  introspection: true,
+  playground: process.env.NODE_ENV === "development",
+  introspection: process.env.NODE_ENV === "development",
 });
 
 const handler = server.createHandler({
   cors: {
-    origin: true,
+    origin:
+      process.env.NODE_ENV === "production"
+        ? process.env.WEB_APPLICATION_URL
+        : true,
     credentials: true,
   },
 });
