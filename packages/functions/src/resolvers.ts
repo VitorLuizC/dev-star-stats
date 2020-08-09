@@ -1,12 +1,15 @@
 import signInURLResolvers from "./domains/signInURL/resolvers";
-
-const VERSION = process.env.VERSION ?? "NO_VERSION";
+import signInWithCodeResolvers from "./domains/signInWithCode/resolvers";
 
 const resolvers = {
-  ...signInURLResolvers,
   Query: {
-    version: () => VERSION,
+    _root: () => true,
     ...signInURLResolvers.Query,
+  },
+
+  Mutation: {
+    _root: () => true,
+    ...signInWithCodeResolvers.Mutation,
   },
 };
 

@@ -2,8 +2,10 @@ dependencies:
   apollo-server-cloud-functions: 2.16.1
   firebase-admin: 9.0.0
   firebase-functions: 3.9.0_firebase-admin@9.0.0
+  jsonwebtoken: 8.5.1
   node-fetch: 2.6.0
 devDependencies:
+  '@types/jsonwebtoken': 8.5.0
   dotenv-webpack: 2.0.0_webpack@4.44.1
   firebase-functions-test: 0.2.1_db5b4db3cdffe71f689ead3c716f6dab
   ts-loader: 8.0.2_typescript@3.9.7
@@ -322,6 +324,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-PGAK759pxyfXE78NbKxyfRcWYA/KwW17X290cNev/qAsn9eQIxkH4shoNBafH37wewhDG/0p1cHPbK6+SzZjWQ==
+  /@types/jsonwebtoken/8.5.0:
+    dependencies:
+      '@types/node': 14.0.27
+    dev: true
+    resolution:
+      integrity: sha512-9bVao7LvyorRGZCw0VmH/dr7Og+NdjYSsKAxB43OQoComFbBgsEpoR9JW6+qSq/ogwVBg8GI2MfAlk4SYI4OLg==
   /@types/keygrip/1.0.2:
     dev: false
     resolution:
@@ -373,7 +381,6 @@ packages:
     resolution:
       integrity: sha512-kwbcs0jySLxzLsa2nWUAGOd/s21WU1jebrEdtzhsj1D4Yps1EOuyI1Qcu+FD56dL7NRNIJtDDjcqIG22NwkgLw==
   /@types/node/14.0.27:
-    dev: false
     resolution:
       integrity: sha512-kVrqXhbclHNHGu9ztnAwSncIgJv/FaxmzXJvGXNdcCpV1b8u1/Mi6z6m0vwy0LzKeXFTPLH0NzwmoJ3fNCIq0g==
   /@types/qs/6.9.4:
@@ -4743,11 +4750,13 @@ packages:
     resolution:
       integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==
 specifiers:
+  '@types/jsonwebtoken': ^8.5.0
   apollo-server-cloud-functions: ^2.16.1
   dotenv-webpack: ^2.0.0
   firebase-admin: ^9.0.0
   firebase-functions: ^3.9.0
   firebase-functions-test: ^0.2.1
+  jsonwebtoken: ^8.5.1
   node-fetch: ^2.6.0
   ts-loader: ^8.0.2
   typescript: ^3.9.7
