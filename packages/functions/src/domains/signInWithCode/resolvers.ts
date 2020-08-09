@@ -1,8 +1,9 @@
-import JWT from "jsonwebtoken";
 import fetch from "node-fetch";
 
 import type { SignInWithCodeInput } from "./typeDefs";
 import { AuthenticationError } from "apollo-server-cloud-functions";
+import generateJWT from "../../JWT/generateJWT";
+import type { Request } from "firebase-functions";
 
 const GITHUB_ACCESS_TOKEN_API = "https://github.com/login/oauth/access_token";
 
@@ -19,7 +20,7 @@ type GitHubAccessTokenPayload = {
  * Does a POST request to GitHub access token API and return its payload.
  * @param code - A GitHub OAuth sign-in code.
  */
-function getAccessTokenByCode(code: string): Promise<GitHubAccessTokenPayload> {
+function getAccessTokenByCode(code: string): Promise<string> {
   return fetch(GITHUB_ACCESS_TOKEN_API, {
     body: JSON.stringify({
       code,
@@ -31,18 +32,10 @@ function getAccessTokenByCode(code: string): Promise<GitHubAccessTokenPayload> {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-  }).then((response) => response.json());
+  })
+    .then((response) => response.json())
+    .then((payload: GitHubAccessTokenPayload) => payload.access_token);
 }
-
-/**
- * Generates authentication JWT.
- * @param payload - Payload of GitHub access token.
- */
-const generateAuthenticationJWT = (payload: GitHubAccessTokenPayload) =>
-  JWT.sign({ token: payload.access_token }, process.env.JWT_SECRET, {
-    expiresIn: "2 days",
-    algorithm: "HS256",
-  });
 
 /**
  * Variables of `signInWithCode`.
@@ -56,9 +49,13 @@ type Variables = {
  * @param _ - The parent node is not really used in this resolver.
  * @param variables - An object with variables.
  */
-function signInWithCode(_: unknown, variables: Variables): Promise<string> {
+function signInWithCode(
+  _: unknown,
+  variables: Variables,
+  { req }: { req: Request }
+): Promise<string> {
   return getAccessTokenByCode(variables.input.code)
-    .then(generateAuthenticationJWT)
+    .then(generateJWT(req))
     .catch(() => {
       const message = "Couldn't authenticate with provided code.";
       return Promise.reject(new AuthenticationError(message));

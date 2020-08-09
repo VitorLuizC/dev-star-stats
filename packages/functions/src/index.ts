@@ -4,11 +4,18 @@ import * as functions from "firebase-functions";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 
+import verifyJWT from "./JWT/verifyJWT";
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   playground: process.env.NODE_ENV === "development",
   introspection: process.env.NODE_ENV === "development",
+  context: ({ req, res }) => ({
+    req,
+    res,
+    user: verifyJWT(req),
+  }),
 });
 
 const handler = server.createHandler({
