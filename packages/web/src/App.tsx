@@ -1,51 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+
+import Home from "./views/Home";
+import SignIn from "./views/SignIn";
+import Callback from "./views/Callback";
 
 export default function App() {
-  const [error, setError] = useState<null | Error>(null);
-  const [loading, setLoading] = useState(true);
-  const [signInURL, setSignInURL] = useState<null | string>();
-
-  useEffect(() => {
-    window
-      .fetch("http://127.0.0.1:5001/dev-star-stats/us-central1/graphql", {
-        body: JSON.stringify({
-          query: /* GraphQL */ `
-            query SIGN_IN_URL_QUERY {
-              signInURL
-            }
-          `,
-          variables: {},
-        }),
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        setLoading(false);
-        setSignInURL(result.data.signInURL);
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
-
-  return (
-    <main>
-      <h1>
-        ⭐ <code>dev-star-stats</code>
-      </h1>
-      {error ? (
-        <p>Erro: {error.message}</p>
-      ) : loading ? (
-        <p>Carregando ...</p>
-      ) : (
-        <a href={signInURL ?? undefined}>Entrar com o GitHub</a>
-      )}
-    </main>
-  );
+  if (window.localStorage.getItem("token") !== null) return <Home />;
+  if (window.location.pathname.startsWith("/callback")) return <Callback />;
+  return <SignIn />;
 }
