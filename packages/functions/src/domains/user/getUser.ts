@@ -1,12 +1,10 @@
 import requestGitHubGraphQL from "../../helpers/requestGitHubGraphQL";
+import { GITHUB_USER_FRAGMENT, GitHubUser, toUser } from "./GitHubUser";
+import type User from "./User";
 
-export const GITHUB_USER_FRAGMENT = /* GraphQL */ `
-  fragment GITHUB_USER_FRAGMENT on Actor {
-    url
-    login
-    avatarUrl
-  }
-`;
+type GitHubUserResult = {
+  user: null | GitHubUser;
+};
 
 const GITHUB_USER_QUERY = /* GraphQL */ `
   ${GITHUB_USER_FRAGMENT}
@@ -18,15 +16,6 @@ const GITHUB_USER_QUERY = /* GraphQL */ `
   }
 `;
 
-export type GitHubUser = {
-  url: string;
-  login: string;
-  avatarUrl: string;
-};
-
-type GitHubUserResult = {
-  user: null | GitHubUser;
-};
 
 export default function getUserByUsername(token: string) {
   return (username: string) => {
@@ -36,14 +25,11 @@ export default function getUserByUsername(token: string) {
 
     return requestGitHubGraphQL(GITHUB_USER_QUERY, variables, token)
       .then((result) => result.data as null | GitHubUserResult)
-      .then((result) => {
+      .then((result): null | User => {
         if (!result?.user) return null;
-
-        return {
-          link: result.user.url,
-          username: result.user.login,
-          avatarURL: result.user.avatarUrl,
-        };
+        return toUser(result.user);
       });
   };
 }
+
+
