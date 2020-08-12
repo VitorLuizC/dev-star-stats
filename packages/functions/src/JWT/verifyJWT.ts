@@ -1,6 +1,7 @@
-import type { Request } from 'firebase-functions';
+import type { Request } from "firebase-functions";
 import { verify } from 'jsonwebtoken';
 import ALGORITHM from './ALGORITHM';
+import type JWTPayload from "./JWTPayload";
 
 const PATTERN = /^Bearer (.+)$/;
 
@@ -20,7 +21,7 @@ export default function verifyJWT(req: Request) {
       algorithms: [ALGORITHM],
     });
 
-    return payload;
+    return payload as JWTPayload;
   } catch {
     return null;
   }

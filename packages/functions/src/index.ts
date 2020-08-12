@@ -5,13 +5,14 @@ import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 
 import verifyJWT from "./JWT/verifyJWT";
+import type IContext from "./domains/graphql/IContext";
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   playground: process.env.NODE_ENV === "development",
   introspection: process.env.NODE_ENV === "development",
-  context: ({ req, res }) => ({
+  context: ({ req, res }): IContext => ({
     req,
     res,
     user: verifyJWT(req),
