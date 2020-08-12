@@ -14,9 +14,12 @@
   },
   "main": "./dist/bundle.js",
   "dependencies": {
+    "@bitty/create-request": "^1.0.2",
+    "@bitty/json": "^0.0.1",
     "apollo-server-cloud-functions": "^2.16.1",
     "firebase-admin": "^9.0.0",
     "firebase-functions": "^3.9.0",
+    "graphql": "^15.3.0",
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.0"
   },
