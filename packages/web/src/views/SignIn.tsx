@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import request from "../services/request";
 
 /**
  * Component that renders sign-in. A view where users can sign-in with GitHub.
@@ -9,23 +10,14 @@ export default function SignIn() {
   const [signInURL, setSignInURL] = useState<null | string>();
 
   useEffect(() => {
-    window
-      .fetch("http://127.0.0.1:5001/dev-star-stats/us-central1/graphql", {
-        body: JSON.stringify({
-          query: /* GraphQL */ `
-            query SIGN_IN_URL_QUERY {
-              signInURL
-            }
-          `,
-          variables: {},
-        }),
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => response.json())
+    request(
+      /* GraphQL */ `
+        query SIGN_IN_URL_QUERY {
+          signInURL
+        }
+      `,
+      {}
+    )
       .then((result) => {
         setLoading(false);
         setSignInURL(result.data.signInURL);
